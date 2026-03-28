@@ -1,19 +1,19 @@
-var snowFgX = [];
-var snowFgY = [];
-var snowBgX = [];
-var snowBgY = [];
+let snowFgX = [];
+let snowFgY = [];
+let snowBgX = [];
+let snowBgY = [];
 
 function setup() {
   createCanvas(600, 600);
   
   //initialize foreground snow
-  for (var j = 0; j < 20; j++){
+  for (let j = 0; j < 20; j++){
     snowFgX[j] = random(0, width);
     snowFgY[j] = random(-600, 0);
   }
   
   //initialize background snow
-  for (var k = 0; k < 60; k++){
+  for (let k = 0; k < 60; k++){
     snowBgX[k] = random(0, width);
     snowBgY[k] = random(-600, 0);
   }
@@ -60,7 +60,7 @@ function draw() {
   //create background snow
   noStroke();
   fill("#C9C17C");
-  for (var l = 0; l < snowBgX.length; l++) {
+  for (let l = 0; l < snowBgX.length; l++) {
     ellipse(snowBgX[l], snowBgY[l], 10, 15);
     snowBgY[l] += 4;
     
@@ -77,7 +77,7 @@ function draw() {
   //create foreground snow
   noStroke();
   fill("#f4efc8");
-  for (var i = 0; i < snowFgX.length; i++) {
+  for (let i = 0; i < snowFgX.length; i++) {
     ellipse(snowFgX[i], snowFgY[i], 20, 30);
     snowFgY[i] += 12;
 
