@@ -35,6 +35,7 @@
   <script id="sketch">
     let snowFg = [];
     let snowBg = [];
+    let eyes = true;
 
     function setup() {
       createCanvas(600, 600);
@@ -76,15 +77,28 @@
       triangle(110, 280, 110, 350, 200, 350); // inner earL
       triangle(490, 280, 490, 350, 400, 350); // inner earR
 
-      fill("#FEE8AF"); // sclera
-      ellipse(200, 500, 130, 120);
-      ellipse(400, 500, 130, 120);
-      fill("#8E442D"); // pupils
-      circle(215, 490, 80);
-      circle(385, 490, 80);
-
       fill("#C58954"); // nose
       triangle(300, 580, 270, 550, 330, 550);
+
+      if (eyes) {
+        fill("#FEE8AF");
+        ellipse(200, 500, 130, 120); // left sclera
+        ellipse(400, 500, 130, 120); // right sclera
+
+        fill("#8E442D");
+        circle(215, 490, 80); // left pupil
+        circle(385, 490, 80); // right pupil
+      } else {
+        stroke("#282116");
+        strokeWeight(24)
+        line(150, 500, 250, 510); // left closed eye
+        line(450, 500, 350, 510); // right closed eye
+      }
+
+      let blinkInterval = floor(random(100));
+      if (blinkInterval === 0) {
+        eyes = !eyes;
+      }
     }
 
     function draw() {
