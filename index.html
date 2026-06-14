@@ -2,21 +2,128 @@
 <html lang="en">
 
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/p5@1/lib/p5.min.js"></script>
+  <!-- p5.js ver 2.3.0 -->
+  <script src="./p5.min.js"></script>
 
-  <!-- p5.js version 2.2.3 -->
-  <!-- <script src="./p5.min.js"></script> -->
-
-  <link rel="stylesheet" type="text/css" href="style.css">
   <meta charset="utf-8" />
   <link rel="icon" href="#">
   <title>Umbrella Cat</title>
 
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #7b5224;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    canvas {
+      position: relative;
+      border-radius: 10%;
+      box-shadow: 10px 10px 20px rgba(39, 34, 34, 0.21);
+      border: #fee8af solid 20px;
+    }
+  </style>
 </head>
 
 <body>
-  <script src="sketch.js"></script>
-  <!-- <div class="shape"></div> -->
+  <script id="sketch">
+    let snowFg = [];
+    let snowBg = [];
+
+    function setup() {
+      createCanvas(600, 600);
+
+      // initialize snow
+      for (let j = 0; j < 20; j++) {
+        snowFg[j] = {
+          x: random(0, width),
+          y: random(-600, 0),
+        };
+      }
+      for (let k = 0; k < 60; k++) {
+        snowBg[k] = {
+          x: random(0, width),
+          y: random(-600, 0),
+        };
+      }
+    }
+
+    function drawUmbrella() {
+      fill("#855B2A"); // end tip
+      ellipse(width / 2, height / 4, 40, 120);
+      fill("#F5BC07"); // top
+      ellipse(width / 2, 360, 700, 400);
+      fill("#E89719"); // back
+      ellipse(width / 2, 520, 800, 440);
+    }
+
+    function drawCat() {
+      fill("#453823");
+      rect(100, 350, 400, 500, 20); // base
+      triangle(100, 250, 100, 400, 250, 350); // base earL
+      triangle(500, 250, 500, 400, 350, 350); // base earR
+
+      fill("#dec28a");
+      triangle(300, 380, 150, 600, 450, 600); // inner face
+      triangle(110, 280, 110, 350, 200, 350); // inner earL
+      triangle(490, 280, 490, 350, 400, 350); // inner earR
+
+      fill("#FEE8AF"); // sclera
+      ellipse(200, 500, 130, 120);
+      ellipse(400, 500, 130, 120);
+      fill("#8E442D"); // pupils
+      circle(215, 490, 80);
+      circle(385, 490, 80);
+
+      fill("#C58954"); // nose
+      triangle(300, 580, 270, 550, 330, 550);
+    }
+
+    function draw() {
+      background("#A7924A");
+      fill("#AC9B54");
+      ellipse(width / 2, -50, 1000, 500);
+      fill("#AFA15A");
+      ellipse(width / 2, -80, 1000, 400);
+
+      noStroke();
+      fill("#C9C17C"); // background snow
+      for (let i = 0; i < snowBg.length; i++) {
+        const snow = snowBg[i];
+        ellipse(snow.x, snow.y, 10, 15);
+        snow.y += 4;
+
+        // restart snow
+        if (snow.y > 650) {
+          snow.y = 0;
+          snow.x = random(0, width);
+        }
+      }
+
+      drawUmbrella();
+      drawCat();
+
+      noStroke();
+      fill("#f4efc8"); // foreground snow
+      for (let i = 0; i < snowFg.length; i++) {
+        const snow = snowFg[i];
+        ellipse(snow.x, snow.y, 20, 30);
+        snow.y += 12;
+
+        // restart snow
+        if (snow.y > 650) {
+          snow.y = 0;
+          snow.x = random(0, width);
+        }
+      }
+    }
+  </script>
 </body>
 
 </html>
