@@ -44,12 +44,14 @@
         snowFg[j] = {
           x: random(0, width),
           y: random(-600, 0),
+          speed: random(8, 12)
         };
       }
       for (let k = 0; k < 60; k++) {
         snowBg[k] = {
           x: random(0, width),
           y: random(-600, 0),
+          speed: random(4, 6)
         };
       }
     }
@@ -97,12 +99,13 @@
       for (let i = 0; i < snowBg.length; i++) {
         const snow = snowBg[i];
         ellipse(snow.x, snow.y, 10, 15);
-        snow.y += 4;
+        snow.y += snow.speed;
 
         // restart snow
         if (snow.y > 650) {
           snow.y = 0;
           snow.x = random(0, width);
+          snow.speed = random(4, 6);
         }
       }
 
@@ -114,12 +117,13 @@
       for (let i = 0; i < snowFg.length; i++) {
         const snow = snowFg[i];
         ellipse(snow.x, snow.y, 20, 30);
-        snow.y += 12;
+        snow.y += snow.speed;
 
         // restart snow
         if (snow.y > 650) {
           snow.y = 0;
           snow.x = random(0, width);
+          snow.speed = random(8, 12);
         }
       }
     }
