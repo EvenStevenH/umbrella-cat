@@ -85,33 +85,29 @@ function drawCat() {
 	triangle(110, 280, 110, 350, 200, 350); // inner ear L
 	triangle(490, 280, 490, 350, 400, 350); // inner ear R
 
-	fill("#C58954"); // nose
-	triangle(300, 580, 270, 550, 330, 550);
+	fill("#C58954");
+	triangle(300, 580, 270, 550, 330, 550); // nose
 
 	if (eyes) {
 		fill("#FEE8AF");
 		ellipse(200, 500, 130, 120); // sclera L
 		ellipse(400, 500, 130, 120); // sclera L
 
-		fill("#8E442D"); // pupils L R
-		switch (eyeDirection) {
-			case "front":
-				circle(215, 490, 80);
-				circle(385, 490, 80);
-				break;
-			case "right":
-				circle(217, 491, 80);
-				circle(387, 491, 80);
-				break;
-			case "left":
-				circle(214, 492, 80);
-				circle(384, 492, 80);
-				break;
-			case "down":
-				circle(216, 493, 80);
-				circle(386, 493, 80);
-				break;
+		fill("#8E442D"); // "front" by default
+		let offsetX = 0;
+		let offsetY = 0;
+		if (eyeDirection === "right") {
+			offsetX = 2;
+			offsetY = 1;
+		} else if (eyeDirection === "left") {
+			offsetX = -1;
+			offsetY = 2;
+		} else if (eyeDirection === "down") {
+			offsetX = 1;
+			offsetY = 3;
 		}
+		circle(215 + offsetX, 490 + offsetY, 80); // pupils L
+		circle(385 + offsetX, 490 + offsetY, 80); // pupils R
 	} else {
 		stroke("#282116");
 		strokeWeight(24);
@@ -120,28 +116,25 @@ function drawCat() {
 	}
 
 	// eye movement
-	if (millis() - lastEyeMove > random(1000, 2000)) {
+	if (millis() - lastEyeMove > random(1000, 4000)) {
 		let eyeChance = random();
 		lastEyeMove = millis();
-		switch (true) {
-			case eyeChance < 0.6:
-				eyeDirection = "front";
-				break;
-			case eyeChance >= 0.6 && eyeChance <= 0.7:
-				eyeDirection = "right";
-				break;
-			case eyeChance >= 0.7 && eyeChance <= 0.8:
-				eyeDirection = "left";
-				break;
-			default:
-				eyeDirection = "down";
+
+		if (eyeChance < 0.6) {
+			eyeDirection = "front";
+		} else if (eyeChance >= 0.6 && eyeChance < 0.7) {
+			eyeDirection = "right";
+		} else if (eyeChance >= 0.7 && eyeChance < 0.8) {
+			eyeDirection = "left";
+		} else {
+			eyeDirection = "down";
 		}
 	}
 
 	// blink
-	if (millis() - lastBlink > random(4000, 10000)) {
-		eyes = !eyes;
-		blinkStartTime = millis(); // start blink timer when eyes change state
+	if (millis() - lastBlink > random(6000, 10000)) {
+		eyes = !eyes; // hide eyes
+		blinkStartTime = millis(); // start blink timer
 		lastBlink = millis();
 	}
 	if (!eyes && millis() - blinkStartTime > 400) {
