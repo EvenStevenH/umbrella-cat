@@ -17,131 +17,31 @@
       background-color: #7b5224;
       display: flex;
       min-height: 100vh;
-      flex-direction: column;
+      flex-direction: column-reverse;
       justify-content: center;
       align-items: center;
     }
 
     canvas {
-      position: relative;
       border-radius: 10%;
       box-shadow: 10px 10px 20px rgba(39, 34, 34, 0.21);
       border: #fee8af solid 20px;
+    }
+
+    a {
+      color: #F5BC07;
+    }
+
+    .name {
+      color: #fee8af;
     }
   </style>
 </head>
 
 <body>
-  <script id="sketch">
-    let snowFg = [];
-    let snowBg = [];
-    let eyes = true;
+  <script src="sketch.js"></script>
 
-    function setup() {
-      createCanvas(600, 600);
-
-      // initialize snow
-      for (let j = 0; j < 20; j++) {
-        snowFg[j] = {
-          x: random(0, width),
-          y: random(-600, 0),
-          speed: random(8, 12)
-        };
-      }
-      for (let k = 0; k < 60; k++) {
-        snowBg[k] = {
-          x: random(0, width),
-          y: random(-600, 0),
-          speed: random(4, 6)
-        };
-      }
-    }
-
-    function drawUmbrella() {
-      fill("#855B2A"); // end tip
-      ellipse(width / 2, height / 4, 40, 120);
-      fill("#F5BC07"); // top
-      ellipse(width / 2, 360, 700, 400);
-      fill("#E89719"); // back
-      ellipse(width / 2, 520, 800, 440);
-    }
-
-    function drawCat() {
-      fill("#453823");
-      rect(100, 350, 400, 500, 20); // base
-      triangle(100, 250, 100, 400, 250, 350); // base earL
-      triangle(500, 250, 500, 400, 350, 350); // base earR
-
-      fill("#dec28a");
-      triangle(300, 380, 150, 600, 450, 600); // inner face
-      triangle(110, 280, 110, 350, 200, 350); // inner earL
-      triangle(490, 280, 490, 350, 400, 350); // inner earR
-
-      fill("#C58954"); // nose
-      triangle(300, 580, 270, 550, 330, 550);
-
-      if (eyes) {
-        fill("#FEE8AF");
-        ellipse(200, 500, 130, 120); // left sclera
-        ellipse(400, 500, 130, 120); // right sclera
-
-        fill("#8E442D");
-        circle(215, 490, 80); // left pupil
-        circle(385, 490, 80); // right pupil
-      } else {
-        stroke("#282116");
-        strokeWeight(24)
-        line(150, 500, 250, 510); // left closed eye
-        line(450, 500, 350, 510); // right closed eye
-      }
-
-      let blinkInterval = floor(random(100));
-      if (blinkInterval === 0) {
-        eyes = !eyes;
-      }
-    }
-
-    function draw() {
-      background("#A7924A");
-      fill("#AC9B54");
-      ellipse(width / 2, -50, 1000, 500);
-      fill("#AFA15A");
-      ellipse(width / 2, -80, 1000, 400);
-
-      noStroke();
-      fill("#C9C17C"); // background snow
-      for (let i = 0; i < snowBg.length; i++) {
-        const snow = snowBg[i];
-        ellipse(snow.x, snow.y, 10, 15);
-        snow.y += snow.speed;
-
-        // restart snow
-        if (snow.y > 650) {
-          snow.y = 0;
-          snow.x = random(0, width);
-          snow.speed = random(4, 6);
-        }
-      }
-
-      drawUmbrella();
-      drawCat();
-
-      noStroke();
-      fill("#f4efc8"); // foreground snow
-      for (let i = 0; i < snowFg.length; i++) {
-        const snow = snowFg[i];
-        ellipse(snow.x, snow.y, 20, 30);
-        snow.y += snow.speed;
-
-        // restart snow
-        if (snow.y > 650) {
-          snow.y = 0;
-          snow.x = random(0, width);
-          snow.speed = random(8, 12);
-        }
-      }
-    }
-  </script>
+  <p class="name">By Steven Huang | <a href="https://github.com/EvenStevenH" target="_blank">GitHub</a></p>
 </body>
 
 </html>
