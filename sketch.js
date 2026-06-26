@@ -5,6 +5,7 @@ let eyeDirection = "front";
 let lastEyeMove = 0;
 let lastBlink = 0;
 let blinkStartTime = 0;
+const hour = new Date().getHours();
 
 function setup() {
 	createCanvas(600, 600);
@@ -28,14 +29,35 @@ function setup() {
 }
 
 function drawBackground() {
-	background("#A7924A");
-	fill("#AC9B54");
+	let bgCol1, bgCol2, bgCol3, snowCol;
+	if (hour >= 6 && hour < 12) {
+		// morning
+		bgCol1 = "#EBD785";
+		bgCol2 = "#E1D17C";
+		bgCol3 = "#DCC973";
+		snowCol = "#F6EDA5";
+	} else if (hour >= 12 && hour < 18) {
+		// afternoon
+		bgCol1 = "#A7924A";
+		bgCol2 = "#AC9B54";
+		bgCol3 = "#AFA15A";
+		snowCol = "#C9C17C";
+	} else {
+		// evening/night
+		bgCol1 = "#99703C";
+		bgCol2 = "#9E7744";
+		bgCol3 = "#A37F4D";
+		snowCol = "#b89965";
+	}
+
+	background(bgCol1);
+	fill(bgCol2);
 	ellipse(width / 2, -50, 1000, 500);
-	fill("#AFA15A");
+	fill(bgCol3);
 	ellipse(width / 2, -80, 1000, 400);
 
 	noStroke();
-	fill("#C9C17C");
+	fill(snowCol);
 	for (let i = 0; i < snowBg.length; i++) {
 		const snow = snowBg[i];
 		ellipse(snow.x, snow.y, 10, 15);
